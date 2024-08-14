@@ -19,7 +19,7 @@ RUN pacman -S --noconfirm pacman pacman-mirrorlist
 RUN pacman -Syu --noconfirm
 RUN sed -i "s/ check / !check /g" /etc/makepkg.conf
 
-RUN for f in $(find "$JINX_CACHE_DIR/sets/.image" -perm 000 2>/dev/null); do chmod 755 "$f"; done
+RUN for f in $(find / -perm 000 2>/dev/null); do chmod 755 "$f"; done
 RUN pacman --needed --noconfirm -S bison diffutils docbook-xsl flex gettext inetutils libtool libxslt m4 make patch perl python texinfo w3m which xmlto
 
 RUN curl -Lo "xstow-${XSTOW_VERSION}.tar.gz" https://github.com/majorkingleo/xstow/releases/download/${XSTOW_VERSION}/xstow-${XSTOW_VERSION}.tar.gz
