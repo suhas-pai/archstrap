@@ -5,12 +5,12 @@ on:
     paths:
     - 'Dockerfile'
     - 'get-archlinux-bootstrap.sh'
-    - '.github/workflows/docker-image.yml'
+    - '.github/workflows/bootstrap-image.yml'
   pull_request:
     paths:
     - 'Dockerfile'
     - 'get-archlinux-bootstrap.sh'
-    - '.github/workflows/docker-image.yml'
+    - '.github/workflows/bootstrap-image.yml'
 
 env:
   REGISTRY: ghcr.io
