@@ -1,4 +1,4 @@
-name: Arch Bootstrap Docker Image CI
+name: Arch Linux Bootstrap Docker Image CI
 
 on:
   push:
