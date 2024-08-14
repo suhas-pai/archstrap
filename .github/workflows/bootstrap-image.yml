@@ -35,8 +35,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: archstrap:$(date +%s)
 
     - name: Generate artifact attestation
       uses: actions/attest-build-provenance@v1
