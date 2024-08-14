@@ -35,7 +35,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: $(date +%s)
+        tags: archstrap:latest
 
     - name: Generate artifact attestation
       uses: actions/attest-build-provenance@v1
