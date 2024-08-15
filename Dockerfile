@@ -34,7 +34,7 @@ RUN rm -rf /xstow_buildenv
 RUN rm /xstow-${XSTOW_VERSION}.tar.gz
 
 RUN mkdir -p /tmp/iso_root
-RUN rsync -av --exclude='/tmp' --exclude='/sys' --exclude='/proc' --exclude='/boot' --exclude='/EFI' --exclude='/dev' / /tmp/iso_root
+RUN rsync -a --exclude='/tmp' --exclude='/sys' --exclude='/proc' --exclude='/boot' --exclude='/EFI' --exclude='/dev' / /tmp/iso_root
 RUN cd /tmp/iso_root && tar -czf /tmp/template-x86_64.tar.gz .
 
 CMD ["/bin/bash"]
