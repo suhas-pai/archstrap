@@ -34,8 +34,8 @@ print() {
 unpack() {
     print " ---> Unpack archive: ${1:-} into path: ${2:-}"
     zstdcat "${1:-}" | tar -xf - -C "${2:-}"
-    mkdir -p "${2:-}/etc/pacman.d" ||  error "Failed to create /etc/pacman.d directory"
-    mkdir -p "${2:-}/etc/pacman.d/gnupg" || error "Failed to create /etc/pacman.d/gnupg directory"
+    mkdir -p "${2:-}/etc/pacman.d" ||  error "Failed to create /etc/pacman.d directory in ${2:-}"
+    mkdir -p "${2:-}/etc/pacman.d/gnupg" || error "Failed to create /etc/pacman.d/gnupg directory in ${2:-}"
 }
 
 verify() {
