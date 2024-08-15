@@ -8,6 +8,8 @@ RUN bash ./get-archlinux-bootstrap.sh
 
 FROM scratch
 ENV XSTOW_VERSION=1.1.1
+
+COPY --from=builder /tmp/iso_root /tmp/iso_root
 COPY --from=builder /tmp/bootstrap/root.x86_64 /
 
 RUN locale-gen
@@ -20,7 +22,7 @@ RUN pacman -Syu --noconfirm
 RUN sed -i "s/ check / !check /g" /etc/makepkg.conf
 
 RUN for f in $(find / -perm 000 2>/dev/null); do chmod 755 "$f"; done
-RUN pacman --needed --noconfirm -S bison diffutils docbook-xsl flex gettext inetutils libtool libxslt m4 make patch perl python texinfo w3m which xmlto
+RUN pacman --needed --noconfirm -S bison diffutils docbook-xsl flex gettext inetutils libtool libxslt m4 make patch perl python texinfo w3m which xmlto vim zsh nasm xorriso rsync
 
 RUN curl -Lo "xstow-${XSTOW_VERSION}.tar.gz" https://github.com/majorkingleo/xstow/releases/download/${XSTOW_VERSION}/xstow-${XSTOW_VERSION}.tar.gz
 RUN mkdir -p xstow_buildenv
@@ -31,5 +33,8 @@ RUN cd /xstow-${XSTOW_VERSION} && ./configure LDFLAGS='-static' --enable-static 
 RUN mv /xstow-${XSTOW_VERSION}/src/merge-info /
 RUN rm -rf /xstow_buildenv
 RUN rm /xstow-${XSTOW_VERSION}.tar.gz
+
+RUN rsync -av --exclude='/tmp' --exclude='/sys' --exclude='/proc' --exclude='/boot' --exclude='/EFI' --exclude='/dev' / /tmp/iso_root
+RUN cd /tmp/iso_root && tar -czf /tmp/template-x86_64.tar.gz .
 
 CMD ["/bin/bash"]
