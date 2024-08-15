@@ -9,7 +9,6 @@ RUN bash ./get-archlinux-bootstrap.sh
 FROM scratch
 ENV XSTOW_VERSION=1.1.1
 
-COPY --from=builder /tmp/iso_root /tmp/iso_root
 COPY --from=builder /tmp/bootstrap/root.x86_64 /
 
 RUN locale-gen
@@ -34,6 +33,7 @@ RUN mv /xstow-${XSTOW_VERSION}/src/merge-info /
 RUN rm -rf /xstow_buildenv
 RUN rm /xstow-${XSTOW_VERSION}.tar.gz
 
+RUN mkdir -p /tmp/iso_root
 RUN rsync -av --exclude='/tmp' --exclude='/sys' --exclude='/proc' --exclude='/boot' --exclude='/EFI' --exclude='/dev' / /tmp/iso_root
 RUN cd /tmp/iso_root && tar -czf /tmp/template-x86_64.tar.gz .
 
